@@ -23,13 +23,13 @@ The **Gravitational Transform** works by Fourier transforming arbitrary data and
 
 ## Math
 
-Given a discrete signal \( f(t) \) with period \( T \), its Fourier series is
-$$
+Given a discrete signal $f(t)$ with period $T$, its Fourier series is
+$
 f(t) = a_0 + \sum_{n=1}^{N}
        [a_n \cos(n\omega_0 t)
             + b_n \sin(n\omega_0 t)],
 \qquad
-\omega_0 = \frac{2\pi}{T}$$
+\omega_0 = \frac{2\pi}{T}$
 
 The amplitude and phase for each node is:
 
@@ -41,11 +41,11 @@ A_n = \sqrt{a_n^2 + b_n^2},
 $$
 
 Each Fourier mode, in the gravitational transform, maps to a body in a gravitational simulation:
-$$
+$
 m_n = k_m A_n, \qquad
 r_n = \frac{k_r}{n}, \qquad
 \omega_n = n\omega_0
-$$
+$
 
 Positions evolve according to Newton’s law of gravitation:
 
@@ -60,7 +60,7 @@ The **Gravitational Transform**
 
 $$
 \mathcal{G}[f(t)] =
-\{\mathbf{r}_n(t),\,\mathbf{v}_n(t),\,m_n\}
+\{\mathbf{r}_n(t),\mathbf{v}_n(t),m_n\}
 $$
 
 is a mapping from frequency space to dynamical, gravitational space.

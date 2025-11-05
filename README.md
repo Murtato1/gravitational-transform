@@ -24,90 +24,93 @@ The **Gravitational Transform** works by Fourier transforming arbitrary data and
 ## Math
 
 Given a discrete signal \( f(t) \) with period \( T \), its Fourier series is
-
-\[
+$$
 f(t) = a_0 + \sum_{n=1}^{N}
        \big[a_n \cos(n\omega_0 t)
             + b_n \sin(n\omega_0 t)\big],
 \qquad
-\omega_0 = \frac{2\pi}{T}.
-\]
+\omega_0 = \frac{2\pi}{T}$$
 
 The amplitude and phase for each node is:
 
-\[
+$$
 A_n = \sqrt{a_n^2 + b_n^2},
 \qquad
-\phi_n = \tan^{-1}\!\left(\frac{b_n}{a_n}\right).
-\]
+\phi_n = \tan^{-1}\!\left(\frac{b_n}{a_n}\right)
+$$
 
 Each Fourier mode, in the gravitational transform, maps to a body in a gravitational simulation:
-
-\[
+$$
 m_n = k_m A_n, \qquad
 r_n = \frac{k_r}{n}, \qquad
-\omega_n = n\omega_0.
-\]
+\omega_n = n\omega_0
+$$
 
 Positions evolve according to Newton’s law of gravitation:
 
-\[
+$$
 \frac{d^2 \mathbf{r}_i}{dt^2}
   = G \sum_{j\neq i}
     m_j \frac{\mathbf{r}_j - \mathbf{r}_i}
-              {|\mathbf{r}_j - \mathbf{r}_i|^3}.
-\]
+              {|\mathbf{r}_j - \mathbf{r}_i|^3}
+              $$
 
 The **Gravitational Transform**
 
-\[
+$$
 \mathcal{G}[f(t)] =
 \big\{\mathbf{r}_n(t),\,\mathbf{v}_n(t),\,m_n\big\}
-\]
+$$
 
 is a mapping from frequency space to dynamical, gravitational space.
-
----
 
 ## Example 
 
 Let's consider the sentence "hello world" as an example:
+
 > `"hello world"`
 
 This sentence can be transformed into an array of normalized ascii values:
 
-\[
+$$
 f = [0.408,\,0.396,\,0.424,\,0.424,\,0.435,\,0.125,\,
-     0.467,\,0.435,\,0.447,\,0.424,\,0.392].
-\]
+     0.467,\,0.435,\,0.447,\,0.424,\,0.392]
+$$
 
 We can take the discrete Fourier transform of this:
 
-\[
+$$
 \hat{f}_k = \sum_{n=0}^{N-1}
   f_n\, e^{-2\pi i kn / N},
 \quad N = 11.
-\]
+$$
 
-Each mode \( k \) has amplitude
-\(|\hat{f}_k|\) and phase
-\(\phi_k = \arg(\hat{f}_k)\).
+Each mode $k$ has amplitude
+$|\hat{f}_k|$ and phase
+$\phi_k = \arg(\hat{f}_k)$
 
 These become orbital parameters:
+<table>
+  <tr>
+    <th>k</th>
+    <th>mₖ ∝ |f̂ₖ|</th>
+    <th>rₖ ∝ 1/k</th>
+    <th>ωₖ ∝ k</th>
+    <th>φₖ (rad)</th>
+  </tr>
+  <tr><td>1</td><td>0.45</td><td>1.0</td><td>1 · ω₀</td><td>2.53</td></tr>
+  <tr><td>2</td><td>0.23</td><td>0.5</td><td>2 · ω₀</td><td>3.66</td></tr>
+  <tr><td>3</td><td>0.20</td><td>0.33</td><td>3 · ω₀</td><td>−1.10</td></tr>
+  <tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+</table>
 
-| \(k\) | \(m_k \propto |\hat{f}_k|\) | \(r_k \propto 1/k\) | \(\omega_k \propto k\) | \(\phi_k\) (rad) |
-|:----:|:--------------------:|:------------------:|:----------------:|:----------------:|
-| 1 | 0.45 | 1.0 | \(1\omega_0\) | 2.53 |
-| 2 | 0.23 | 0.5 | \(2\omega_0\) | 3.66 |
-| 3 | 0.20 | 0.33 | \(3\omega_0\) | −1.10 |
-| … | … | … | … | … |
 
 Simulating these under Newton's laws gives us a "planetary" system whose orbital interference patterns has the spectral components of “hello world”.
 
 If we project the x-positions of all masses back over time,
 
-\[
-f'(t) = \sum_i m_i \cos(\omega_i t + \phi_i),
-\]
+$
+f'(t) = \sum_i m_i \cos(\omega_i t + \phi_i)
+$
 
 we obtain a gravitationally evolved echo of the original phrase.

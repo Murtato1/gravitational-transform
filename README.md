@@ -26,12 +26,13 @@ The **Gravitational Transform** works by Fourier transforming arbitrary data and
 Given a discrete signal \( f(t) \) with period \( T \), its Fourier series is
 $$
 f(t) = a_0 + \sum_{n=1}^{N}
-       \big[a_n \cos(n\omega_0 t)
-            + b_n \sin(n\omega_0 t)\big],
+       [a_n \cos(n\omega_0 t)
+            + b_n \sin(n\omega_0 t)],
 \qquad
 \omega_0 = \frac{2\pi}{T}$$
 
 The amplitude and phase for each node is:
+
 
 $$
 A_n = \sqrt{a_n^2 + b_n^2},
@@ -59,7 +60,7 @@ The **Gravitational Transform**
 
 $$
 \mathcal{G}[f(t)] =
-\big\{\mathbf{r}_n(t),\,\mathbf{v}_n(t),\,m_n\big\}
+\{\mathbf{r}_n(t),\,\mathbf{v}_n(t),\,m_n\}
 $$
 
 is a mapping from frequency space to dynamical, gravitational space.
@@ -109,8 +110,6 @@ Simulating these under Newton's laws gives us a "planetary" system whose orbital
 
 If we project the x-positions of all masses back over time,
 
-$
-f'(t) = \sum_i m_i \cos(\omega_i t + \phi_i)
-$
+$f'(t) = \sum_i m_i \cos(\omega_i t + \phi_i)$
 
 we obtain a gravitationally evolved echo of the original phrase.

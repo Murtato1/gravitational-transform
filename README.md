@@ -24,6 +24,7 @@ The **Gravitational Transform** works by Fourier transforming arbitrary data and
 ## Math
 
 Given a discrete signal $f(t)$ with period $T$, its Fourier series is
+
 $$
 f(t) = a_0 + \sum_{n=1}^{N}
        [a_n \cos(n\omega_0 t)
@@ -42,6 +43,7 @@ A_n = \sqrt{a_n^2 + b_n^2},
 $$
 
 Each Fourier mode, in the gravitational transform, maps to a body in a gravitational simulation:
+
 $$
 m_n = k_m A_n, \qquad
 r_n = \frac{k_r}{n}, \qquad

@@ -24,12 +24,13 @@ The **Gravitational Transform** works by Fourier transforming arbitrary data and
 ## Math
 
 Given a discrete signal $f(t)$ with period $T$, its Fourier series is
-$
+$$
 f(t) = a_0 + \sum_{n=1}^{N}
        [a_n \cos(n\omega_0 t)
             + b_n \sin(n\omega_0 t)],
 \qquad
-\omega_0 = \frac{2\pi}{T}$
+\omega_0 = \frac{2\pi}{T}
+$$
 
 The amplitude and phase for each node is:
 
@@ -41,11 +42,11 @@ A_n = \sqrt{a_n^2 + b_n^2},
 $$
 
 Each Fourier mode, in the gravitational transform, maps to a body in a gravitational simulation:
-$
+$$
 m_n = k_m A_n, \qquad
 r_n = \frac{k_r}{n}, \qquad
 \omega_n = n\omega_0
-$
+$$
 
 Positions evolve according to Newton’s law of gravitation:
 
@@ -74,15 +75,15 @@ Let's consider the sentence "hello world" as an example:
 This sentence can be transformed into an array of normalized ascii values:
 
 $$
-f = [0.408,\,0.396,\,0.424,\,0.424,\,0.435,\,0.125,\,
-     0.467,\,0.435,\,0.447,\,0.424,\,0.392]
+f = [0.408,\ 0.396,\ 0.424,\ 0.424,\ 0.435,\ 0.125,\ 
+     0.467,\ 0.435,\ 0.447,\ 0.424,\ 0.392]
 $$
 
 We can take the discrete Fourier transform of this:
 
 $$
 \hat{f}_k = \sum_{n=0}^{N-1}
-  f_n\, e^{-2\pi i kn / N},
+  f_n\  e^{-2\pi i kn / N},
 \quad N = 11.
 $$
 

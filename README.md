@@ -2,117 +2,119 @@
 
 ## Motivation
 
-If you wanted to store information for the longest amount of time possible, how would you do it? Computer chips will fail in centuries, etchings in stone will only last thousands, and even more creative answers like DNA encoding can only theoretically last millions. Meanwhile, planetary system orbits can be stable for billions of years, and orbital patterns can encode information in the frequency domain. So, an unrealistic but interesting answer to the posed question is to transform the desired piece of information into orbital patterns with different masses and store the information within the dynamics of the system.
+If you wanted to store information for the longest amount of time possible, how would you do it? Computer chips will fail in centuries, etchings in stone will only last thousands, and even more creative answers like DNA encoding can only theoretically last millions. Meanwhile, planetary system orbits can be stable for billions of years, and orbital patterns can encode information in the frequency domain. So, an unrealistic but interesting answer to the posed question is to transform the desired piece of information into orbital patterns with different masses and store the information within the dynamics of the system. However, this is only in the ideal case. Planetary systems evolve over time, so how does this change the message they encode?
 
-The **Gravitational Transform** works by Fourier transforming arbitrary data and then converting this into a gravitational simulation.
+### The Gravitational Transform
 
-## Process
-1. **Fourier Decomposition**  
-   Decompose your data into amplitudes and phases using a discrete Fourier transform (DFT).
+The Gravitational transform (GT) is a transform that takes in arbitrary data (in this implementation, this is strings) and computes a mapping between this data and orbital parameters. This mapping is done through using a Fourier transform as well as Newtonian physics and Kepler's laws. The system is then run with an N-body simulator and integrated over a specified time frame. Afterwards, we can obtain an evolved 'echo' of the original data. 
 
-2. **Spectral Mapping**  
-   - Amplitude is mapped to object mass
-   - Frequency is mapped to Orbital Radius / Angular Velocity  
-   - Phase → Initial Angle
+# Process
 
-3. **Gravitational Simulation**  
-   Use an n-body integrator to evolve the system under gravitational dynamics.
-
-4. **Visualization**  
-   Render the result as a real-time simulation.
-
-## Math
-
-Given a discrete signal $f(t)$ with period $T$, its Fourier series is
+## 1. Fourier Decomposition
+Given a discrete signal \( f[n] \), we compute its discrete Fourier transform:
 
 $$
-f(t) = a_0 + \sum_{n=1}^{N}
-       [a_n \cos(n\omega_0 t)
-            + b_n \sin(n\omega_0 t)],
+\hat{f}_k = \sum_{n=0}^{N-1} f[n] e^{-2\pi i kn/N}
+$$
+
+For each mode \( k \), define:
+
+$$
+A_k = |\hat{f}_k|, \qquad 
+\phi_k = \arg(\hat{f}_k)
+$$
+
+
+## 2. Spectral mapping
+Each Fourier mode becomes a planet. We use:
+
+### **Amplitude to Orbital Radius**
+$$
+r_k = s_r \, A_k^\gamma, \qquad 0.5 \le \gamma \le 0.8
+$$
+
+This is mostly done to make the inverse transform easier while also making the visualizations well spaced.
+
+### **Phase becomes the initial angle**
+$$
+\theta_k = \phi_k
+$$
+
+### **Circular orbital velocity**
+Each planet has a velocity:
+
+$$
+v_k = \sqrt{\frac{G M_\star}{r_k}}
+$$
+
+where \( M_\star \) is a large fixed central mass.
+
+### **Mass**
+Planet masses actually don't need to encode any data, because our implementation includes a large central star of fixed position and mass.
+
+Then each parameter is:
+$$
+\mathbf{r}_k(0) = 
+\begin{bmatrix}
+r_k \cos\theta_k \\
+r_k \sin\theta_k
+\end{bmatrix},
 \qquad
-\omega_0 = \frac{2\pi}{T}
+\mathbf{v}_k(0) =
+\begin{bmatrix}
+- v_k \sin\theta_k \\
++ v_k \cos\theta_k
+\end{bmatrix}
 $$
 
-The amplitude and phase for each node is:
-
+## 3. Gravitational Simulation
+The system evolves using an N-body integrator under Newton’s laws:
 
 $$
-A_n = \sqrt{a_n^2 + b_n^2},
+\frac{d^2\mathbf{r}_i}{dt^2} =
+G \sum_{j\ne i}
+m_j \frac{\mathbf{r}_j - \mathbf{r}_i}
+{|\mathbf{r}_j - \mathbf{r}_i|^3 }
+$$
+
+This produces different trajectories:
+
+$$
+\mathcal{G}(f) = \left\{ \mathbf{r}_k(t), \, \mathbf{v}_k(t) \right\}_{k=1}^N
+$$
+
+The original message evolves under these laws and this changes the content of the original information.
+
+# Inverse Transform 
+
+To decode at time \( t \), we just need each planet's:
+
+$$
+r_k(t) = \|\mathbf{r}_k(t)\|,
 \qquad
-\phi_n = \tan^{-1}\!\left(\frac{b_n}{a_n}\right)
+\theta_k(t) = \operatorname{atan2}(y_k(t), x_k(t))
 $$
 
-Each Fourier mode, in the gravitational transform, maps to a body in a gravitational simulation:
-
+Then invert the original mapping:
 $$
-m_n = k_m A_n, \qquad
-r_n = \frac{k_r}{n}, \qquad
-\omega_n = n\omega_0
+\hat{A}_k(t) = \left(\frac{r_k(t)}{s_r}\right)^{1/\gamma}
 $$
-
-Positions evolve according to Newton’s law of gravitation:
-
 $$
-\frac{d^2 \mathbf{r}_i}{dt^2}
-  = G \sum_{j\neq i}
-    m_j \frac{\mathbf{r}_j - \mathbf{r}_i}
-              {|\mathbf{r}_j - \mathbf{r}_i|^3}
-              $$
-
-The **Gravitational Transform**
-
-$$
-\mathcal{G}[f(t)] =
-\{\mathbf{r}_n(t),\mathbf{v}_n(t),m_n\}
+\hat{\phi}_k(t) = \theta_k(t)
 $$
 
-is a mapping from frequency space to dynamical, gravitational space.
-
-## Example 
-
-Let's consider the sentence "hello world" as an example:
-
-> `"hello world"`
-
-This sentence can be transformed into an array of normalized ascii values:
+The nodes are then:
+$$
+\hat{f}_k(t) = \hat{A}_k(t) \, e^{i\hat{\phi}_k(t)}
+$$
+Inverse FFT:
 
 $$
-f = [0.408,\ 0.396,\ 0.424,\ 0.424,\ 0.435,\ 0.125,\ 
-     0.467,\ 0.435,\ 0.447,\ 0.424,\ 0.392]
+f_t[n] = \Re\left( \operatorname{IFFT}(\hat{f}_k(t)) \right)
 $$
 
-We can take the discrete Fourier transform of this:
+Then just convert back to characters! Each value is rounded to the nearest ASCII mapping:
 
-$$
-\hat{f}_k = \sum_{n=0}^{N-1}
-  f_n\  e^{-2\pi i kn / N},
-\quad N = 11.
-$$
+An example of "hello world":
 
-Each mode $k$ has amplitude
-$|\hat{f}_k|$ and phase
-$\phi_k = \arg(\hat{f}_k)$
-
-These become orbital parameters:
-<table>
-  <tr>
-    <th>k</th>
-    <th>mₖ ∝ |f̂ₖ|</th>
-    <th>rₖ ∝ 1/k</th>
-    <th>ωₖ ∝ k</th>
-    <th>φₖ (rad)</th>
-  </tr>
-  <tr><td>1</td><td>0.45</td><td>1.0</td><td>1 · ω₀</td><td>2.53</td></tr>
-  <tr><td>2</td><td>0.23</td><td>0.5</td><td>2 · ω₀</td><td>3.66</td></tr>
-  <tr><td>3</td><td>0.20</td><td>0.33</td><td>3 · ω₀</td><td>−1.10</td></tr>
-  <tr><td>…</td><td>…</td><td>…</td><td>…</td><td>…</td></tr>
-</table>
-
-
-Simulating these under Newton's laws gives us a "planetary" system whose orbital interference patterns has the spectral components of “hello world”.
-
-If we project the x-positions of all masses back over time,
-
-$f'(t) = \sum_i m_i \cos(\omega_i t + \phi_i)$
-
-we obtain a gravitationally evolved echo of the original phrase.
+![Alt text](examples/hello_world_ex.png)

@@ -11,13 +11,13 @@ The Gravitational transform (GT) is a transform that takes in arbitrary data (in
 # Process
 
 ## 1. Fourier Decomposition
-Given a discrete signal \( f[n] \), we compute its discrete Fourier transform:
+Given a discrete signal $ f[n] $, we compute its discrete Fourier transform:
 
 $$
 \hat{f}_k = \sum_{n=0}^{N-1} f[n] e^{-2\pi i kn/N}
 $$
 
-For each mode \( k \), define:
+For each mode $ k $, define:
 
 $$
 A_k = |\hat{f}_k|, \qquad 
@@ -47,13 +47,13 @@ $$
 v_k = \sqrt{\frac{G M_\star}{r_k}}
 $$
 
-where \( M_\star \) is a large fixed central mass.
+where $ M_\star $ is a large fixed central mass.
 
 ### **Mass**
 Planet masses actually don't need to encode any data, because our implementation includes a large central star of fixed position and mass.
 
 Then each parameter is:
-$$
+$
 \mathbf{r}_k(0) = 
 \begin{bmatrix}
 r_k \cos\theta_k \\
@@ -65,7 +65,7 @@ r_k \sin\theta_k
 - v_k \sin\theta_k \\
 + v_k \cos\theta_k
 \end{bmatrix}
-$$
+$
 
 ## 3. Gravitational Simulation
 The system evolves using an N-body integrator under Newton’s laws:
@@ -80,14 +80,14 @@ $$
 This produces different trajectories:
 
 $$
-\mathcal{G}(f) = \left\{ \mathbf{r}_k(t), \, \mathbf{v}_k(t) \right\}_{k=1}^N
+\mathcal{G}(f) = \{ \mathbf{r}_k(t), \, \mathbf{v}_k(t) \}_{k=1}^N
 $$
 
 The original message evolves under these laws and this changes the content of the original information.
 
 # Inverse Transform 
 
-To decode at time \( t \), we just need each planet's:
+To decode at time $ t $, we just need each planet's:
 
 $$
 r_k(t) = \|\mathbf{r}_k(t)\|,
@@ -110,7 +110,7 @@ $$
 Inverse FFT:
 
 $$
-f_t[n] = \Re\left( \operatorname{IFFT}(\hat{f}_k(t)) \right)
+f_t[n] = \Re\left( IFFT(\hat{f}_k(t)) \right)
 $$
 
 Then just convert back to characters! Each value is rounded to the nearest ASCII mapping:

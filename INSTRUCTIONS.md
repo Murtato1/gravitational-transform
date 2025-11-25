@@ -14,6 +14,6 @@ There are built in pytest unit tests to make sure everything is working correctl
 
 The output should show each test's output and hopefully no errors should occur!
 
-Now you can use the cli commands to run the project in a python instance.
+Now you can use the cli commands to run the project in a python instance. Examples of usage of the important functions in the package are included in the example notebook. 
 
 

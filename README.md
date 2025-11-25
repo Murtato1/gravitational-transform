@@ -17,7 +17,7 @@ $$
 \hat{f}_k = \sum_{n=0}^{N-1} f[n] e^{-2\pi i kn/N}
 $$
 
-For each mode $ k $, define:
+For each mode $k$, define:
 
 $$
 A_k = |\hat{f}_k|, \qquad 
@@ -47,13 +47,13 @@ $$
 v_k = \sqrt{\frac{G M_\star}{r_k}}
 $$
 
-where $ M_\star $ is a large fixed central mass.
+where $M_\star$ is a large fixed central mass.
 
 ### **Mass**
 Planet masses actually don't need to encode any data, because our implementation includes a large central star of fixed position and mass.
 
 Then each parameter is:
-$
+$$
 \mathbf{r}_k(0) = 
 \begin{bmatrix}
 r_k \cos\theta_k \\
@@ -65,7 +65,7 @@ r_k \sin\theta_k
 - v_k \sin\theta_k \\
 + v_k \cos\theta_k
 \end{bmatrix}
-$
+$$
 
 ## 3. Gravitational Simulation
 The system evolves using an N-body integrator under Newton’s laws:
@@ -96,17 +96,21 @@ r_k(t) = \|\mathbf{r}_k(t)\|,
 $$
 
 Then invert the original mapping:
+
 $$
 \hat{A}_k(t) = \left(\frac{r_k(t)}{s_r}\right)^{1/\gamma}
 $$
+
 $$
 \hat{\phi}_k(t) = \theta_k(t)
 $$
 
 The nodes are then:
+
 $$
 \hat{f}_k(t) = \hat{A}_k(t) \, e^{i\hat{\phi}_k(t)}
 $$
+
 Inverse FFT:
 
 $$

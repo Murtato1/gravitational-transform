@@ -8,10 +8,7 @@ def animate_fourier_orbits(positions, meta, interval=20):
     Compatible with the new forward_transform() output.
     """
 
-    # Extract number of planets (skip central star)
     N = meta["N"]
-
-    # Initial positions
     pos0 = positions[0]
     initial_planets = pos0[1:N+1]
 
@@ -22,7 +19,6 @@ def animate_fourier_orbits(positions, meta, interval=20):
     fig, ax = plt.subplots(figsize=(7, 7))
     ax.set_aspect("equal", "box")
 
-    # Plot circles to show initial orbit radii
     orbit_lines = []
     for r in radii:
         circ = plt.Circle((0, 0), r, color="lightgray", fill=False, linewidth=1)
@@ -32,7 +28,6 @@ def animate_fourier_orbits(positions, meta, interval=20):
     # Planet markers
     scat = ax.scatter(initial_planets[:,0], initial_planets[:,1], s=25, color="blue")
 
-    # Axes limits (dynamic)
     lim = np.max(radii) * 2.5
     ax.set_xlim(-lim, lim)
     ax.set_ylim(-lim, lim)

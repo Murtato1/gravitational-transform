@@ -3,6 +3,9 @@ import matplotlib.pyplot as plt
 from gt.simulation.nbody import run_simulation
 
 def minimal_circular_orbit():
+    """
+    Test of confugration with no transform and just 1 body
+    """
     G = 1.0
     M = 100.0  # central star
     m = 1.0    # orbiting body
@@ -35,6 +38,9 @@ def minimal_circular_orbit():
     plt.show()
 
 def minimal_multi_orbit():
+    """
+    Test of confugration with no transform and multiple bodies
+    """
     G = 1.0
     M = 200.0
     masses = [M]

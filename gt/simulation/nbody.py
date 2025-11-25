@@ -32,12 +32,8 @@ def step_verlet(pos, vel, masses, dt, G=1.0):
     acc_new = compute_accelerations(pos_new, masses, G)
     vel_new = vel + 0.5 * (acc + acc_new) * dt
 
-    # ============================================
-    # 🔥 FIX: keep the central mass pinned at origin
-    # ============================================
     pos_new[0] = np.array([0.0, 0.0])
     vel_new[0] = np.array([0.0, 0.0])
-    # ============================================
 
     return pos_new, vel_new, acc_new
 

@@ -6,27 +6,21 @@ def forward_transform(signal, radius_scale=3.0, gamma=0.6, steps=3000, dt=0.01):
     Full Fourier → Orbit Transform (Option B).
     """
 
-    # -----------------------------------------
-    # 1) Compute true Fourier coefficients
-    # -----------------------------------------
+    # Compute fourier coeffs
     F = np.fft.fft(signal)
-    A = np.abs(F)          # amplitudes
-    phi = np.angle(F)      # phases
+    A = np.abs(F)          
+    phi = np.angle(F)      
     N = len(F)
 
-    # -----------------------------------------
-    # 2) Map amplitude → radius (nonlinear)
-    # -----------------------------------------
+   
+    # Map amplitude to radius
     radii = radius_scale * (A ** gamma)
 
-    # phases → theta
+    # Map phases to theta
     theta = phi.copy()
 
-    # -----------------------------------------
-    # 3) Generate initial orbit state
-    # -----------------------------------------
-    M_star = np.sum(A) * 30.0   # big central mass
-    masses = np.ones(N + 1)     # 0 = star, 1..N planets
+    M_star = np.sum(A) * 30.0  
+    masses = np.ones(N + 1)     
     masses[0] = M_star
 
     # positions
@@ -53,9 +47,7 @@ def forward_transform(signal, radius_scale=3.0, gamma=0.6, steps=3000, dt=0.01):
             +v * np.cos(ang)
         ]
 
-    # -----------------------------------------
-    # 4) Run simulation
-    # -----------------------------------------
+    # Run simulation
     positions = run_simulation(pos, vel, masses, steps=steps, dt=dt)
 
     # store orbit parameters for inverse

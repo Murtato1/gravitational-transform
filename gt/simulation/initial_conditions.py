@@ -25,7 +25,7 @@ def init_velocities(radii, masses, phi, G=1.0):
 
     vel = np.zeros((len(radii), 2))
 
-    # central mass velocity = 0
+    # central mass velocity set = 0
     vel[0] = [0.0, 0.0]
 
     M = masses[0]  # central star mass

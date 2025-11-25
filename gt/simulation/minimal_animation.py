@@ -5,6 +5,9 @@ from gt.simulation.nbody import run_simulation
 
 
 def animate_circular_orbit():
+    """
+    Test of animation and orbit simulation without any transform data
+    """
     G = 1.0
     M = 100.0
     m = 1.0

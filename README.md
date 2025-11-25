@@ -92,7 +92,7 @@ To decode at time $ t $, we just need each planet's:
 $$
 r_k(t) = \|\mathbf{r}_k(t)\|,
 \qquad
-\theta_k(t) = \operatorname{atan2}(y_k(t), x_k(t))
+\theta_k(t) = \text{atan2}(y_k(t), x_k(t))
 $$
 
 Then invert the original mapping:

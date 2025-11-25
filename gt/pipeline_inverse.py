@@ -15,31 +15,21 @@ def inverse_transform(positions, meta, t_index=-1):
     # skip central star
     pos_planets = pos_t[1:N+1]
 
-    # -----------------------------------------
-    # 1) Extract (radius, angle) at time T
-    # -----------------------------------------
+    #  Get radius and angle at time t
     r_t = np.sqrt(pos_planets[:,0]**2 + pos_planets[:,1]**2)
     theta_t = np.arctan2(pos_planets[:,1], pos_planets[:,0])
 
-    # -----------------------------------------
-    # 2) Invert nonlinear radius map
-    # -----------------------------------------
+    # Invert map
     A_hat = (r_t / radius_scale) ** (1.0 / gamma)
     phi_hat = theta_t
 
-    # -----------------------------------------
-    # 3) Build Fourier coefficients
-    # -----------------------------------------
+    # Get fourier coeffs
     F_hat = A_hat * np.exp(1j * phi_hat)
 
-    # -----------------------------------------
-    # 4) Inverse FFT → signal reconstruction
-    # -----------------------------------------
+    # Apply inverse fft
     signal_hat = np.fft.ifft(F_hat).real
 
-    # -----------------------------------------
-    # 5) Convert values → ASCII text
-    # -----------------------------------------
+    # Convert to ASCII
     chars = []
     for x in signal_hat:
         val = int(round(x))

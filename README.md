@@ -11,7 +11,7 @@ The Gravitational transform (GT) is a transform that takes in arbitrary data (in
 # Process
 
 ## 1. Fourier Decomposition
-Given a discrete signal $ f[n] $, we compute its discrete Fourier transform:
+Given a discrete signal $f[n]$, we compute its discrete Fourier transform:
 
 $$
 \hat{f}_k = \sum_{n=0}^{N-1} f[n] e^{-2\pi i kn/N}
@@ -87,7 +87,7 @@ The original message evolves under these laws and this changes the content of th
 
 # Inverse Transform 
 
-To decode at time $ t $, we just need each planet's:
+To decode at time $t$, we just need each planet's:
 
 $$
 r_k(t) = \|\mathbf{r}_k(t)\|,

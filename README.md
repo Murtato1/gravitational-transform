@@ -2,7 +2,11 @@
 
 ## Motivation
 
-If you wanted to store information for the longest amount of time possible, how would you do it? Computer chips will fail in centuries, etchings in stone will only last thousands, and even more creative answers like DNA encoding can only theoretically last millions. Meanwhile, planetary system orbits can be stable for billions of years, and orbital patterns can encode information in the frequency domain. So, an unrealistic but interesting answer to the posed question is to transform the desired piece of information into orbital patterns with different masses and store the information within the dynamics of the system. However, this is only in the ideal case. Planetary systems evolve over time, so how does this change the message they encode?
+How can one store information for the longest possible timescale? Conventional methods—such as silicon-based memory, magnetic storage, or even inscriptions in stone—degrade within centuries to thousands of years. More speculative ideas, such as encoding information in DNA, extend this lifetime to perhaps millions of years but still fall far short of geological or cosmological timescales.
+
+In contrast, planetary systems exhibit orbital stability over billions of years. Their long-lived dynamical patterns naturally reside in the frequency domain, suggesting that orbital motion itself could act as an ultra-long-term information archive. One could, in principle, encode data by mapping it onto the orbital parameters of a gravitational system, letting the encoded “message’’ persist as the system evolves.
+
+Of course, this scenario is idealized. Real planetary systems evolve due to perturbations, resonances, numerical instabilities, and long-term chaotic behavior. A central question then emerges: if information is encoded into the initial orbital configuration, how does the message transform as the gravitational system evolves?
 
 ### The Gravitational Transform
 
@@ -120,5 +124,6 @@ $$
 Then just convert back to characters! Each value is rounded to the nearest ASCII mapping:
 
 An example of "hello world":
+
 
 ![Alt text](examples/hello_world_ex.png)

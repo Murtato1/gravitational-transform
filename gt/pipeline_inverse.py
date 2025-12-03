@@ -1,5 +1,6 @@
 import numpy as np
 
+# If you ignored DC in the forward transform, inverse transform WILL NOT WORK!
 def inverse_transform(positions, meta, t_index=-1):
     """
     Inverse Orbit → Fourier → Signal → Text

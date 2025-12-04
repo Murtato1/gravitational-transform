@@ -137,7 +137,7 @@ where $f_t[n]$ is the recovered signal, $\Re$ denotes the real part, and $IFFT$ 
 
 Then just convert back to characters! Each value is rounded to the nearest ASCII mapping:
 
-An example of "hello world":
+An example of "abcdefghijklmnopqrstuvwxyz":
 
 
-![Alt text](examples/hello_world_ex.png)
+![Alt text](examples/gifs/abcdefghijklmnopqrstuvwxyz.gif)

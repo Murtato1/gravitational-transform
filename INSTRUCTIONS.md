@@ -1,19 +1,25 @@
 # Getting Started
 
-To get started with the package, first install the requirements in a fresh venv (preferrably conda) using
+To get started with the package, first install the requirements in a fresh venv (preferably conda) using
 
-```pip install -r requirements.txt```
+```bash
+pip install -r requirements.txt
+```
 
-And then build the toml using 
+And then build the project using 
 
-```pip install -e .```
+```bash
+pip install -e .
+```
 
-There are built in pytest unit tests to make sure everything is working correctly. From the base directory, simply run
+There are built-in pytest unit tests to ensure the installation works correctly. From the base directory, simply run
 
-```pytest```
+```bash
+pytest
+```
 
 The output should show each test's output and hopefully no errors should occur!
 
-Now you can use the cli commands to run the project in a python instance. Examples of usage of the important functions in the package are included in the example notebook. 
+Now you can use the cli commands to run the project in a Python session. Examples of usage of the important functions in the package are included in the example notebook. 
 
 
